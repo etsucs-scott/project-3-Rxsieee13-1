@@ -1,4 +1,5 @@
 ﻿using Minesweeper.Core;
+namespace MinesweeperTest;
 
 [TestClass]
 public class BoardTests
