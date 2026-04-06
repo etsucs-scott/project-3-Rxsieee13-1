@@ -1,6 +1,5 @@
 ﻿namespace Minesweeper.Core;
 
-
 public class Board
 {
     private Tile[,] grid;
@@ -139,15 +138,8 @@ public class Board
         return r >= 0 && r < rows && c >= 0 && c < cols;
     }
 
-    public bool IsRevealed(int r, int c)
-    {
-        return grid[r, c].IsRevealed;
-    }
-
-    public bool IsFlagged(int r, int c)
-    {
-        return grid[r, c].IsFlagged;
-    }
+    public bool IsRevealed(int r, int c) => grid[r, c].IsRevealed;
+    public bool IsFlagged(int r, int c) => grid[r, c].IsFlagged;
 
     public string GetMineLayout()
     {
