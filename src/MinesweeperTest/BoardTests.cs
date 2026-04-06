@@ -1,5 +1,6 @@
-﻿using Minesweeper.Core;
-namespace MinesweeperTest;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Minesweeper.Core;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 [TestClass]
 public class BoardTests
