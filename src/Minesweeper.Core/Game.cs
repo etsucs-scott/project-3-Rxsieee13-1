@@ -23,11 +23,24 @@ public class Game
             board.Print();
             DisplayStats();
 
-            Console.Write("Command (r row col | f row col): ");
+            Console.Write("Command (r row col | f row col | q): ");
             string input = Console.ReadLine();
 
+            string trimmed = input.Trim().ToLower();
+
+
+            if (trimmed == "q" || trimmed == "quit" || trimmed == "exit")
+            {
+                QuitGame();
+                break;
+            }
+
             if (!ParseInput(input, out char cmd, out int r, out int c))
+            {
+                Console.WriteLine("Invalid input. Try again.");
+                Console.ReadKey();
                 continue;
+            }
 
             if (cmd == 'f')
             {
@@ -92,5 +105,18 @@ public class Game
         Console.WriteLine("You Win!");
 
         scoreManager.SaveScore(score, DateTime.Now - startTime);
+    }
+
+    private void QuitGame()
+    {
+        Console.Clear();
+        Console.WriteLine("You quit the game.");
+
+        TimeSpan elapsed = DateTime.Now - startTime;
+
+        Console.WriteLine($"Final Score: {score}");
+        Console.WriteLine($"Time Played: {elapsed.Seconds}s");
+
+        scoreManager.SaveScore(score, elapsed);
     }
 }
