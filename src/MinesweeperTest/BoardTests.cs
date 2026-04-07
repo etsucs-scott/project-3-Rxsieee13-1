@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Minesweeper.Core;
-using Assert = Xunit.Assert;
 namespace MinesweeperTest;
 
 [TestClass]
@@ -9,8 +8,8 @@ public class BoardTests
         [TestMethod]
         public void Board_CreatesSuccessfully()
         {
-            Board board = new Board(5, 5, 3, 1);
-            Assert.NotNull(board);
+            Board board = new Board(5, 5, 0, 1);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(board);
         }
 
         [TestMethod]
@@ -20,7 +19,7 @@ public class BoardTests
 
             board.Reveal(2, 2);
 
-            Assert.True(board.IsRevealed(2, 2));
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(board.IsRevealed(2, 2));
         }
 
         [TestMethod]
@@ -30,7 +29,7 @@ public class BoardTests
 
             board.Reveal(-1, -1);
 
-            Assert.False(board.IsRevealed(0, 0));
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsFalse(board.IsRevealed(0, 0));
         }
 
         [TestMethod]
@@ -40,7 +39,7 @@ public class BoardTests
 
             board.ToggleFlag(1, 1);
 
-            Assert.True(board.IsFlagged(1, 1));
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(board.IsFlagged(1, 1));
         }
 
         [TestMethod]
@@ -51,7 +50,7 @@ public class BoardTests
             board.ToggleFlag(1, 1);
             board.ToggleFlag(1, 1);
 
-            Assert.False(board.IsFlagged(1, 1));
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsFalse(board.IsFlagged(1, 1));
         }
 
         [TestMethod]
@@ -64,7 +63,7 @@ public class BoardTests
             board.Reveal(1, 0);
             board.Reveal(1, 1);
 
-            Assert.True(board.CheckWin());
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(board.CheckWin());
         }
 
         [TestMethod]
@@ -74,7 +73,7 @@ public class BoardTests
 
             board.Reveal(0, 0);
 
-            Assert.False(board.CheckWin());
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsFalse(board.CheckWin());
         }
 
         [TestMethod]
@@ -84,9 +83,9 @@ public class BoardTests
 
             board.RevealAll();
 
-            Assert.True(board.IsRevealed(0, 0));
-            Assert.True(board.IsRevealed(1, 1));
-            Assert.True(board.IsRevealed(2, 2));
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(board.IsRevealed(0, 0));
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(board.IsRevealed(1, 1));
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(board.IsRevealed(2, 2));
         }
 
         [TestMethod]
@@ -95,7 +94,7 @@ public class BoardTests
             Board board1 = new Board(5, 5, 5, 42);
             Board board2 = new Board(5, 5, 5, 42);
 
-            Assert.Equal(board1.GetMineLayout(), board2.GetMineLayout());
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(board1.GetMineLayout(), board2.GetMineLayout());
         }
 
         [TestMethod]
@@ -104,7 +103,7 @@ public class BoardTests
             Board board1 = new Board(5, 5, 5, 1);
             Board board2 = new Board(5, 5, 5, 2);
 
-            Assert.NotEqual(board1.GetMineLayout(), board2.GetMineLayout());
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreNotEqual(board1.GetMineLayout(), board2.GetMineLayout());
         }
 
         [TestMethod]
@@ -115,7 +114,7 @@ public class BoardTests
             board.ToggleFlag(2, 2);
             board.Reveal(2, 2);
 
-            Assert.False(board.IsRevealed(2, 2));
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsFalse(board.IsRevealed(2, 2));
         }
 
         [TestMethod]
@@ -125,7 +124,7 @@ public class BoardTests
 
             board.Reveal(1, 1);
 
-            Assert.True(board.IsRevealed(0, 0));
-            Assert.True(board.IsRevealed(2, 2));
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(board.IsRevealed(0, 0));
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(board.IsRevealed(2, 2));
         }
 }
