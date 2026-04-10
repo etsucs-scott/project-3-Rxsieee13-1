@@ -153,3 +153,4 @@ public class BoardTest
         Assert.Equal(0, CountAdjacentMines(board, 0, 2));
     }
 }
+
