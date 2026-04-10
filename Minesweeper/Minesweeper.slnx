@@ -1,5 +1,5 @@
 <Solution>
   <Project Path="Minesweeper.Console/Minesweeper.Console.csproj" />
   <Project Path="Minesweeper.Core/Minesweeper.Core.csproj" />
-  <Project Path="MinesweeperTest/MinesweeperTest.csproj" Id="39227b49-11b0-46d4-b4f6-412842e28f45" />
+  <Project Path="MinesweeperTest/MinesweeperTest.csproj" Id="dde00612-7741-4e12-9e69-dd1809e04f8a" />
 </Solution>
