@@ -2,11 +2,14 @@
 
 public class Board
 {
+    // Represents the game board with tiles, mines, and numbers.
     private Tile[,] grid;
     private int rows;
     private int cols;
     private int mineCount;
 
+    // Initializes the board with the specified dimensions and mine count,
+    // using a seed for reproducibility.
     public Board(int rows, int cols, int mines, int seed)
     {
         this.rows = rows;
@@ -20,6 +23,7 @@ public class Board
         CalculateNumbers();
     }
 
+    // Initializes the grid with empty tiles.
     private void Initialize()
     {
         for (int r = 0; r < rows; r++)
@@ -27,6 +31,7 @@ public class Board
                 grid[r, c] = new Tile();
     }
 
+    // Places mines randomly on the board based on the provided seed.
     private void PlaceMines(int seed)
     {
         Random rand = new Random(seed);
@@ -45,6 +50,7 @@ public class Board
         }
     }
 
+    // Calculates the number of adjacent mines for each tile on the board.
     private void CalculateNumbers()
     {
         int[] dr = { -1, -1, -1, 0, 0, 1, 1, 1 };
@@ -72,6 +78,8 @@ public class Board
         }
     }
 
+    // Reveals a tile at the specified coordinates.
+    // If the tile has no adjacent mines, it recursively reveals neighboring tiles.
     public void Reveal(int r, int c)
     {
         if (!InBounds(r, c)) return;
@@ -91,14 +99,17 @@ public class Board
         }
     }
 
+    // Toggles a flag on the tile at the specified coordinates.
     public void ToggleFlag(int r, int c)
     {
         if (InBounds(r, c))
             grid[r, c].IsFlagged = !grid[r, c].IsFlagged;
     }
 
+    // Checks if the tile at the specified coordinates contains a mine.
     public bool IsMine(int r, int c) => grid[r, c].IsMine;
 
+    // Checks if all non-mine tiles have been revealed, indicating a win.
     public bool CheckWin()
     {
         foreach (var tile in grid)
@@ -108,12 +119,14 @@ public class Board
         return true;
     }
 
+    // Reveals all tiles on the board, typically used when the game is over.
     public void RevealAll()
     {
         foreach (var tile in grid)
             tile.IsRevealed = true;
     }
 
+    // Prints the current state of the board to the console.
     public void Print()
     {
         Console.Clear();
@@ -133,14 +146,18 @@ public class Board
         }
     }
 
+    // Helper method to check if the given coordinates are within the bounds of the board.
     private bool InBounds(int r, int c)
     {
         return r >= 0 && r < rows && c >= 0 && c < cols;
     }
 
+    // Helper methods to check the state of a tile at the specified coordinates.
     public bool IsRevealed(int r, int c) => grid[r, c].IsRevealed;
     public bool IsFlagged(int r, int c) => grid[r, c].IsFlagged;
 
+    // For testing purposes: returns a string representation
+    // of the mine layout (1 for mine, 0 for empty).
     public string GetMineLayout()
     {
         string layout = "";

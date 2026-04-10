@@ -2,11 +2,15 @@
 
 public class Game
 {
+    // Manages the overall game flow, user input,
+    // and interactions with the Board and ScoreManager.
     private Board board;
     private int score;
     private DateTime startTime;
     private ScoreManager scoreManager;
 
+    // Initializes the game with the specified board dimensions,
+    // mine count, and seed for reproducibility.
     public Game(int rows, int cols, int mines, int seed)
     {
         board = new Board(rows, cols, mines, seed);
@@ -14,6 +18,7 @@ public class Game
         score = 0;
     }
 
+    // Starts the main game loop, handling user input and game state updates.
     public void Start()
     {
         startTime = DateTime.Now;
@@ -66,12 +71,14 @@ public class Game
         }
     }
 
+    // Displays the current score and elapsed time to the player.
     private void DisplayStats()
     {
         TimeSpan elapsed = DateTime.Now - startTime;
         Console.WriteLine($"\nScore: {score} | Time: {elapsed.Seconds}s\n");
     }
 
+    // Parses user input into a command and coordinates.
     private bool ParseInput(string input, out char cmd, out int r, out int c)
     {
         cmd = ' ';
@@ -87,6 +94,7 @@ public class Game
                int.TryParse(parts[2], out c);
     }
 
+    // Handles the game over scenario by revealing the board, displaying a message,
     private void GameOver()
     {
         board.RevealAll();
@@ -97,6 +105,7 @@ public class Game
         scoreManager.SaveScore(score, DateTime.Now - startTime);
     }
 
+    // Handles the win scenario by revealing the board, displaying a message,
     private void Win()
     {
         board.RevealAll();
@@ -107,6 +116,7 @@ public class Game
         scoreManager.SaveScore(score, DateTime.Now - startTime);
     }
 
+    // Handles quitting the game by clearing the console, displaying final stats,
     private void QuitGame()
     {
         Console.Clear();

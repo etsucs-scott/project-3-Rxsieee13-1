@@ -10,8 +10,10 @@ class Program
         Console.WriteLine("2. Medium 12x12");
         Console.WriteLine("3. Hard   16x16");
 
+        // Default to Easy if user input is invalid
         int rows = 8, cols = 8, mines = 10;
 
+        // Loop until valid choice is made
         while (true)
         {
             Console.Write("Enter choice (1-3): ");
@@ -38,13 +40,17 @@ class Program
             }
         }
 
+        // Allow user to enter a seed for reproducibility
         Console.Write("\nEnter seed (blank = random): ");
         string input = Console.ReadLine();
 
+        // If input is blank, use a random seed based on current time;
+        // otherwise, parse the input as an integer seed
         int seed = string.IsNullOrWhiteSpace(input)
             ? Environment.TickCount
             : int.Parse(input);
 
+        // Create and start the game with the chosen settings
         Game game = new Game(rows, cols, mines, seed);
         game.Start();
     }
