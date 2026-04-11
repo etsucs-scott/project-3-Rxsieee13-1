@@ -67,3 +67,14 @@ dotnet run --project ProjectName.App
 - M	Mine
 - .	Empty revealed tile
 - 1-8	Number of adjacent mines
+
+# Running Unit Tests
+- Click Run All Tests
+- Test Coverage Includes:
+- Board generation
+- Mine placement (deterministic with seed)
+- Adjacency counts
+- Cascade reveal behavior
+- Win/loss conditions
+- Flagging logic
+- Boundary handling
