@@ -1,156 +1,148 @@
 ﻿using Minesweeper.Core;
 namespace MinesweeperTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-public class BoardTest
+[TestClass]
+public class BoardTests
 {
-    [Fact]
-    public void BoardTesting()
+    [TestMethod]
+    public void Reveal_RevealsTile()
     {
         // Arrange
-        Board board = new Board();
-        int rows = 5;
-        int cols = 5;
-        int mines = 5;
-        int seed = 42;
+        Board board = new Board(5, 5, 0, 1);
+
         // Act
-        var board = new Board(rows, cols, mines, seed);
+        board.Reveal(2, 2);
+
         // Assert
-        Assert.Equal(mines, CountMines(board));
+        Assert.IsTrue(board.IsRevealed(2, 2));
     }
-    [Fact]
-    public void BoardTesting2()
+
+    [TestMethod]
+    public void Reveal_DoesNotRevealFlaggedTile()
     {
         // Arrange
-        Board board = new Board();
-        int rows = 5;
-        int cols = 5;
-        int mines = 5;
-        int seed = 42;
+        Board board = new Board(5, 5, 0, 1);
+        board.ToggleFlag(1, 1);
+
         // Act
-        var board = new Board(rows, cols, mines, seed);
+        board.Reveal(1, 1);
+
         // Assert
-        Assert.Equal(0, CountAdjacentMines(board, 0, 0));
+        Assert.IsFalse(board.IsRevealed(1, 1));
     }
-    [Fact]
-    public void BoardTesting3()
+
+    [TestMethod]
+    public void ToggleFlag_SetsFlag()
     {
         // Arrange
-        Board board = new Board();
-        int rows = 5;
-        int cols = 5;
-        int mines = 5;
-        int seed = 42;
+        Board board = new Board(5, 5, 0, 1);
+
         // Act
-        var board = new Board(rows, cols, mines, seed);
+        board.ToggleFlag(2, 2);
+
         // Assert
-        Assert.Equal(1, CountAdjacentMines(board, 1, 1));
+        Assert.IsTrue(board.IsFlagged(2, 2));
     }
-    [Fact]
-    public void BoardTesting4()
+
+    [TestMethod]
+    public void ToggleFlag_RemovesFlag_WhenCalledTwice()
     {
         // Arrange
-        Board board = new Board();
-        int rows = 5;
-        int cols = 5;
-        int mines = 5;
-        int seed = 42;
+        Board board = new Board(5, 5, 0, 1);
+        board.ToggleFlag(2, 2);
+
         // Act
-        var board = new Board(rows, cols, mines, seed);
+        board.ToggleFlag(2, 2);
+
         // Assert
-        Assert.Equal(1, CountAdjacentMines(board, 2, 2));
+        Assert.IsFalse(board.IsFlagged(2, 2));
     }
-    [Fact]
-    public void BoardTesting5()
+
+    [TestMethod]
+    public void CheckWin_ReturnsTrue_WhenAllSafeTilesRevealed()
     {
         // Arrange
-        Board board = new Board();
-        int rows = 5;
-        int cols = 5;
-        int mines = 5;
-        int seed = 42;
+        Board board = new Board(2, 2, 0, 1);
+
         // Act
-        var board = new Board(rows, cols, mines, seed);
+        board.Reveal(0, 0);
+        board.Reveal(0, 1);
+        board.Reveal(1, 0);
+        board.Reveal(1, 1);
+
         // Assert
-        Assert.Equal(1, CountAdjacentMines(board, 3, 3));
+        Assert.IsTrue(board.CheckWin());
     }
-    [Fact]
-    public void BoardTesting6()
+
+    [TestMethod]
+    public void CheckWin_ReturnsFalse_WhenTilesRemainHidden()
     {
         // Arrange
-        Board board = new Board();
-        int rows = 5;
-        int cols = 5;
-        int mines = 5;
-        int seed = 42;
+        Board board = new Board(2, 2, 0, 1);
+
         // Act
-        var board = new Board(rows, cols, mines, seed);
+        board.Reveal(0, 0);
+
         // Assert
-        Assert.Equal(1, CountAdjacentMines(board, 4, 4));
+        Assert.IsFalse(board.CheckWin());
     }
-    [Fact]
-    public void BoardTesting7()
+
+    [TestMethod]
+    public void RevealAll_RevealsAllTiles()
     {
         // Arrange
-        Board board = new Board();
-        int rows = 5;
-        int cols = 5;
-        int mines = 5;
-        int seed = 42;
+        Board board = new Board(3, 3, 0, 1);
+
         // Act
-        var board = new Board(rows, cols, mines, seed);
+        board.RevealAll();
+
         // Assert
-        Assert.Equal(0, CountAdjacentMines(board, 0, 4));
+        Assert.IsTrue(board.IsRevealed(0, 0));
+        Assert.IsTrue(board.IsRevealed(1, 1));
+        Assert.IsTrue(board.IsRevealed(2, 2));
     }
-    private int CountMines(Board board)
-    {
-        int count = 0;
-        for (int r = 0; r < board.Rows; r++)
-            for (int c = 0; c < board.Cols; c++)
-                if (board.Cells[r, c].IsMine)
-                    count++;
-        return count;
-    }
-    [Fact]
-    public void BoardTesting8()
+
+    [TestMethod]
+    public void Reveal_OutOfBounds_DoesNothing()
     {
         // Arrange
-        Board board = new Board();
-        int rows = 5;
-        int cols = 5;
-        int mines = 5;
-        int seed = 42;
+        Board board = new Board(3, 3, 0, 1);
+
         // Act
-        var board = new Board(rows, cols, mines, seed);
+        board.Reveal(-1, -1);
+
         // Assert
-        Assert.Equal(0, CountAdjacentMines(board, 4, 0));
+        Assert.IsFalse(board.IsRevealed(0, 0));
     }
-    [Fact]
-    public void BoardTesting9()
+
+    [TestMethod]
+    public void MinePlacement_IsDeterministic_WithSameSeed()
     {
         // Arrange
-        Board board = new Board();
-        int rows = 5;
-        int cols = 5;
-        int mines = 5;
-        int seed = 42;
+        Board board1 = new Board(5, 5, 5, 42);
+        Board board2 = new Board(5, 5, 5, 42);
+
         // Act
-        var board = new Board(rows, cols, mines, seed);
+        string layout1 = board1.GetMineLayout();
+        string layout2 = board2.GetMineLayout();
+
         // Assert
-        Assert.Equal(0, CountAdjacentMines(board, 2, 0));
+        Assert.AreEqual(layout1, layout2);
     }
-    [Fact]
-    public void BoardTesting10()
+
+    [TestMethod]
+    public void MinePlacement_Differs_WithDifferentSeeds()
     {
         // Arrange
-        Board board = new Board();
-        int rows = 5;
-        int cols = 5;
-        int mines = 5;
-        int seed = 42;
+        Board board1 = new Board(5, 5, 5, 1);
+        Board board2 = new Board(5, 5, 5, 2);
+
         // Act
-        var board = new Board(rows, cols, mines, seed);
+        string layout1 = board1.GetMineLayout();
+        string layout2 = board2.GetMineLayout();
+
         // Assert
-        Assert.Equal(0, CountAdjacentMines(board, 0, 2));
+        Assert.AreNotEqual(layout1, layout2);
     }
 }
-

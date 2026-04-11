@@ -42,4 +42,28 @@ dotnet run --project ProjectName.App
 - Your repository history is part of your submission.
 - Update this README with build/run instructions specific to your project.
 
-# Project
+# Project Build and Run
+- You can build and run the code using this command:
+- dotnet build
+- dotnet run --project src/Minesweeper.Console
+
+# Game Instructions
+- Board Sizes:
+- Easy: 8x8 grid
+- Medium: 12x12 grid
+- Hard: 16x16 grid
+- Commands:
+- r row col → Reveal a tile ( Example: r 3 4 ))
+- f row col → Place or remove a flag ( Example: f 5 6 )
+- q, quit, or exit → Quit the game
+- Seed Usage:
+- The user can enter a seed value at the start
+- If left blank, the game uses the current time
+- Seeds ensure deterministic mine placement (important for testing)
+
+# Board Symbols
+-#	Hidden tile
+- F	Flagged tile
+- M	Mine
+- .	Empty revealed tile
+- 1-8	Number of adjacent mines
