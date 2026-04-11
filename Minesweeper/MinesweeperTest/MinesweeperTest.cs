@@ -1,6 +1,5 @@
 ﻿using Minesweeper.Core;
 namespace MinesweeperTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 public class BoardTests
 {
