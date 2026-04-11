@@ -2,10 +2,9 @@
 namespace MinesweeperTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-[TestClass]
 public class BoardTests
 {
-    [TestMethod]
+    [Fact]
     public void Reveal_RevealsTile()
     {
         // Arrange
@@ -18,7 +17,7 @@ public class BoardTests
         Assert.IsTrue(board.IsRevealed(2, 2));
     }
 
-    [TestMethod]
+    [Fact]
     public void Reveal_DoesNotRevealFlaggedTile()
     {
         // Arrange
@@ -32,7 +31,7 @@ public class BoardTests
         Assert.IsFalse(board.IsRevealed(1, 1));
     }
 
-    [TestMethod]
+    [Fact]
     public void ToggleFlag_SetsFlag()
     {
         // Arrange
@@ -45,7 +44,7 @@ public class BoardTests
         Assert.IsTrue(board.IsFlagged(2, 2));
     }
 
-    [TestMethod]
+    [Fact]
     public void ToggleFlag_RemovesFlag_WhenCalledTwice()
     {
         // Arrange
@@ -59,7 +58,7 @@ public class BoardTests
         Assert.IsFalse(board.IsFlagged(2, 2));
     }
 
-    [TestMethod]
+    [Fact]
     public void CheckWin_ReturnsTrue_WhenAllSafeTilesRevealed()
     {
         // Arrange
@@ -75,7 +74,7 @@ public class BoardTests
         Assert.IsTrue(board.CheckWin());
     }
 
-    [TestMethod]
+    [Fact]
     public void CheckWin_ReturnsFalse_WhenTilesRemainHidden()
     {
         // Arrange
@@ -88,7 +87,7 @@ public class BoardTests
         Assert.IsFalse(board.CheckWin());
     }
 
-    [TestMethod]
+    [Fact]
     public void RevealAll_RevealsAllTiles()
     {
         // Arrange
@@ -103,7 +102,7 @@ public class BoardTests
         Assert.IsTrue(board.IsRevealed(2, 2));
     }
 
-    [TestMethod]
+    [Fact]
     public void Reveal_OutOfBounds_DoesNothing()
     {
         // Arrange
@@ -116,7 +115,7 @@ public class BoardTests
         Assert.IsFalse(board.IsRevealed(0, 0));
     }
 
-    [TestMethod]
+    [Fact]
     public void MinePlacement_IsDeterministic_WithSameSeed()
     {
         // Arrange
@@ -131,7 +130,7 @@ public class BoardTests
         Assert.AreEqual(layout1, layout2);
     }
 
-    [TestMethod]
+    [Fact]
     public void MinePlacement_Differs_WithDifferentSeeds()
     {
         // Arrange
