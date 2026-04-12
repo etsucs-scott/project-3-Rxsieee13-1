@@ -14,7 +14,7 @@ public class BoardTests
         board.Reveal(2, 2);
 
         // Assert
-        Assert.IsTrue(board.IsRevealed(2, 2));
+        Assert.True(board.IsRevealed(2, 2));
     }
 
     // Test that revealing a flagged tile does not reveal it
@@ -29,7 +29,7 @@ public class BoardTests
         board.Reveal(1, 1);
 
         // Assert
-        Assert.IsFalse(board.IsRevealed(1, 1));
+        Assert.False(board.IsRevealed(1, 1));
     }
 
     // Test that toggling a flag on a tile sets the flag, and toggling it again removes the flag
@@ -43,7 +43,7 @@ public class BoardTests
         board.ToggleFlag(2, 2);
 
         // Assert
-        Assert.IsTrue(board.IsFlagged(2, 2));
+        Assert.True(board.IsFlagged(2, 2));
     }
 
     // Test that toggling a flag on a tile that is already flagged removes the flag
@@ -58,7 +58,7 @@ public class BoardTests
         board.ToggleFlag(2, 2);
 
         // Assert
-        Assert.IsFalse(board.IsFlagged(2, 2));
+        Assert.False(board.IsFlagged(2, 2));
     }
 
     // Test that CheckWin returns true when all non-mine tiles are revealed, and false otherwise
@@ -75,7 +75,7 @@ public class BoardTests
         board.Reveal(1, 1);
 
         // Assert
-        Assert.IsTrue(board.CheckWin());
+        Assert.True(board.CheckWin());
     }
 
     // Test that CheckWin returns false if there are still hidden tiles,
@@ -90,7 +90,7 @@ public class BoardTests
         board.Reveal(0, 0);
 
         // Assert
-        Assert.IsFalse(board.CheckWin());
+        Assert.False(board.CheckWin());
     }
 
     // Test that RevealAll reveals all tiles on the board
@@ -104,9 +104,9 @@ public class BoardTests
         board.RevealAll();
 
         // Assert
-        Assert.IsTrue(board.IsRevealed(0, 0));
-        Assert.IsTrue(board.IsRevealed(1, 1));
-        Assert.IsTrue(board.IsRevealed(2, 2));
+        Assert.True(board.IsRevealed(0, 0));
+        Assert.True(board.IsRevealed(1, 1));
+        Assert.True(board.IsRevealed(2, 2));
     }
 
     // Test that revealing a tile outside the bounds of the board does not throw an exception
@@ -121,7 +121,7 @@ public class BoardTests
         board.Reveal(-1, -1);
 
         // Assert
-        Assert.IsFalse(board.IsRevealed(0, 0));
+        Assert.False(board.IsRevealed(0, 0));
     }
 
     // Test that the mine placement is deterministic when using the same seed,
@@ -138,7 +138,7 @@ public class BoardTests
         string layout2 = board2.GetMineLayout();
 
         // Assert
-        Assert.AreEqual(layout1, layout2);
+        Assert.Equal(layout1, layout2);
     }
 
     // Test that the mine placement differs when using different seeds
@@ -154,6 +154,6 @@ public class BoardTests
         string layout2 = board2.GetMineLayout();
 
         // Assert
-        Assert.AreNotEqual(layout1, layout2);
+        Assert.NotEqual(layout1, layout2);
     }
 }
